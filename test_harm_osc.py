@@ -1,4 +1,4 @@
-import harm_osc_system_sympy as the_system  # Switch sympy and jax versions here
+import harm_osc_system_jax as the_system  # Switch sympy and jax versions here
 import integrator
 import pytest
 
