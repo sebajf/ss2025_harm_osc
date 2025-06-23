@@ -1,0 +1,19 @@
+[project]
+name = "ss2025-harm-osc"
+version = "0.1.0"
+description = "Sample harmonic oscilator simulation"
+authors = [
+    { name = "Sebastián Ferraro", email = "REMOVED_EMAIL" }
+]
+license = { text = "CC BY-NC 4.0" }
+urls = { "License" = "https://creativecommons.org/licenses/by-nc/4.0/" }
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "jax>=0.6.2",
+    "matplotlib>=3.10.3",
+    "pytest>=8.4.1",
+    "pytest-regressions>=2.8.0",
+    "scipy>=1.16.0",
+    "sympy>=1.14.0",
+]
