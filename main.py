@@ -1,6 +1,6 @@
-import harm_osc_system_sympy
+import harm_osc_system_sympy as the_system  # Switch sympy and jax versions here
 import integrator
-import numpy as np
+import jax.numpy as jnp
 
 
 def parameters_example_1():
@@ -15,16 +15,16 @@ def parameters_example_1():
 def simulation_parameters_short_time():
     h = 0.1  # Time step
     N = 100  # Number of steps
-    q0_q1 = np.array([1.0, 1.1])
+    q0_q1 = jnp.array([1.0, 1.1])
     return h, N, q0_q1
 
 
 def main():
-    f_DEL_q2_first = harm_osc_system_sympy.DEL_equations_harmonic_osc()
+    f_DEL_q2_first = the_system.f_DEL_q2_first
     phys_params = parameters_example_1()
     h, N, q0_q1 = simulation_parameters_short_time()
     trajectory = integrator.perform_simulation(f_DEL_q2_first, phys_params, h, N, q0_q1)
-    harm_osc_system_sympy.plot_results(
+    the_system.plot_results(
         trajectory,
         h,
         N,
@@ -33,4 +33,6 @@ def main():
 
 
 if __name__ == "__main__":
+    print(f"Simulating {the_system.name}...")
     main()
+    print("Done.")

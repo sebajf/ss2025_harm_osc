@@ -1,7 +1,8 @@
 from sympy import symbols, diff, simplify, lambdify
 import matplotlib.pyplot as plt
-import numpy as np
+import jax.numpy as jnp
 
+name = "Harmonic Oscillator (sympy version)"
 
 def DEL_equations_harmonic_osc():
     # Define symbols (internal name and display name)
@@ -24,10 +25,11 @@ def DEL_equations_harmonic_osc():
 
     return f_DEL_q2_first
 
+f_DEL_q2_first = DEL_equations_harmonic_osc()
 
 def plot_results(trajectory, h, N, filename="harmonic_oscillator_trajectory.png"):
     plt.figure(figsize=(10, 6))
-    time_points = h * np.arange(N + 1)
+    time_points = h * jnp.arange(N + 1)
     plt.plot(time_points, trajectory, "bo-", label="Oscillator Position")
     plt.axhline(y=0, color="k", linestyle="-", alpha=0.3)
     plt.grid(True, linestyle="--", alpha=0.7)
