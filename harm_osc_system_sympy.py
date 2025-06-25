@@ -4,6 +4,7 @@ import jax.numpy as jnp
 
 name = "Harmonic Oscillator (sympy version)"
 
+
 def DEL_equations_harmonic_osc():
     # Define symbols (internal name and display name)
     q0, q1, q2, h, m, k = symbols("q0 q1 q2 h m k")
@@ -25,17 +26,43 @@ def DEL_equations_harmonic_osc():
 
     return f_DEL_q2_first
 
+
 f_DEL_q2_first = DEL_equations_harmonic_osc()
 
-def plot_results(trajectory, h, N, filename="harmonic_oscillator_trajectory.png"):
+
+def plot_results(
+    trajectory,
+    h,
+    N,
+    filename="harmonic_oscillator_trajectory.png",
+    vectorfield=None,
+    vectorfieldname="Vector Field",
+):
     plt.figure(figsize=(10, 6))
     time_points = h * jnp.arange(N + 1)
     plt.plot(time_points, trajectory, "bo-", label="Oscillator Position")
+    if vectorfield is not None:
+        # Plot vector field as vertical arrows stemming from the trajectory
+        # Larger "scale" value: shorter arrows!
+        plt.quiver(
+            time_points,
+            trajectory,
+            jnp.zeros_like(trajectory),
+            vectorfield,
+            scale=4,
+            scale_units="xy",
+            width=0.002,
+            color="r",
+            label=vectorfieldname,
+        )
     plt.axhline(y=0, color="k", linestyle="-", alpha=0.3)
     plt.grid(True, linestyle="--", alpha=0.7)
     plt.xlabel("Time")
     plt.ylabel("Position")
-    plt.title("Discrete Harmonic Oscillator Trajectory")
+    if vectorfield is not None:
+        plt.title(f"Harmonic Oscillator Trajectory with {vectorfieldname}")
+    else:
+        plt.title("Discrete Harmonic Oscillator Trajectory")
     plt.legend()
     plt.tight_layout()
     plt.savefig(filename)
