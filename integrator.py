@@ -11,7 +11,7 @@ def perform_simulation(f_DEL_q2_first, phys_params, h, N, init_cond):
         q0 = trajectory[i - 1]
         q1 = trajectory[i]
 
-        guess = 2 * q1 + q0  # guess for q2
+        guess = 2 * q1 - q0  # guess for q2
         q2 = root(f_DEL_q2_first, x0=guess, args=(q0, q1, h, phys_params))
         # (If you want, you can check if the root finding was successful)
         trajectory[i + 1] = q2.x[0]
