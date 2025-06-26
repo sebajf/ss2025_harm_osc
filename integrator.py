@@ -1,21 +1,28 @@
 import jax.numpy as jnp
+from jax import lax, jit
 from customNewton import newton_raphson
 
-
+# Correctly apply JIT with static_argnames
 def perform_simulation(f_DEL_q2_first, phys_params, h, N, init_cond):
     trajectory = jnp.zeros(N + 1)  # from 0 to N
-    # Set initial conditions
-    trajectory = trajectory.at[0:2].set(init_cond)  # Set first two values
+    trajectory = trajectory.at[0:2].set(init_cond)  # Set initial conditions
 
-    for i in range(1, N):  # i goes from 1 to N-1
-        q0 = trajectory[i - 1]
-        q1 = trajectory[i]
-
-        guess = 2 * q1 - q0  # guess for q2
+    def step_fn(carry, _):
+        q0, q1 = carry
+        guess = 2 * q1 - q0  # Initial guess for q2
         q2 = newton_raphson(f_DEL_q2_first, x0=guess, args=(q0, q1, h, phys_params))
-        trajectory = trajectory.at[i + 1].set(q2)
+        return (q1, q2), q2
 
+    # Use lax.scan to iterate over the steps
+    init_carry = (trajectory[0], trajectory[1])
+    _, q2_values = lax.scan(step_fn, init_carry, jnp.arange(1, N))
+
+    # Combine the initial conditions and computed values
+    trajectory = trajectory.at[2:].set(q2_values)
     return trajectory
+
+# Apply JIT with static_argnames
+perform_simulation = jit(perform_simulation, static_argnames=["f_DEL_q2_first", "N"])
 
 def perform_simulation_with_split_initial_conditions(f_DEL_q2_first, phys_params, h, N, q0, q1):
     # This function is a wrapper to handle the case where initial conditions are given separately

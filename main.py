@@ -1,4 +1,4 @@
-import harm_osc_system_jax as the_system  # Switch sympy and jax versions here
+import harm_osc_system_jax as the_system  # Switch sympy and jax versions here. Or don't, since the show_off_some_derivatives function expects the jax version.
 import integrator
 import jax.numpy as jnp
 import jax
