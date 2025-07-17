@@ -12,8 +12,8 @@ import pytest
 @pytest.mark.parametrize(
     "phys_params",
     [
-        ({"m": 1.0, "k": 1.0}),
-        ({"m": 2.0, "k": 1.0}),
+        {"m": 1.0, "k": 1.0},
+        {"m": 2.0, "k": 1.0},
     ],
 )
 @pytest.mark.parametrize(

@@ -3,7 +3,7 @@ name = "ss2025-harm-osc"
 version = "0.1.0"
 description = "Sample harmonic oscilator simulation"
 authors = [
-    { name = "Sebastián Ferraro", email = "REMOVED_EMAIL" }
+    { name = "Sebastián Ferraro"}
 ]
 license = { text = "CC BY-NC 4.0" }
 urls = { "License" = "https://creativecommons.org/licenses/by-nc/4.0/" }
