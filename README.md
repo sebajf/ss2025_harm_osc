@@ -5,3 +5,5 @@ Sample code for a harmonic oscillator for the XVII International ICMAT Summer Sc
 It shows how to gradually improve a basic simulation.
 
 Try running `main.py` and `parallel_example.py`. Also, run `pytest` from the command line.
+
+The [presentation slides](slides.pdf) are now included in this repo.
